@@ -1,24 +1,27 @@
 const webpack = require('webpack');
 const path = require('path');
 
+process.env['NODE_ENV'] = 'development';
+
 module.exports = {
     // sourcemaps inline
     devtool: 'eval',
-
-    entry: ['index.tsx'],
-
-    output: {
-        filename: 'app.js',
-        publicPath: 'dist',
-        path: path.resolve('dist')
+	context: path.resolve(__dirname, "src"),
+    entry: {
+        app: 'index.tsx'
     },
 
-    devServer: {
-        port:3000,
-        historyApiFallback: true,
-        inline: true
-    },
-
+    target: 'web',
+	output: {
+		// absolute path
+		path: path.resolve(__dirname, 'dist'),
+		// this is whats used by HTML files when specifying path
+		publicPath: '/',
+		filename: '[name].bundle.js'
+	},
+	plugins:[
+    ],
+    
     resolve: {
         // look for modules in in .ts(x) first, then .js
         extensions: ['.ts', '.tsx', '.js'],
@@ -35,7 +38,16 @@ module.exports = {
                 test: /\.tsx?$/,
                 loaders: ['babel-loader', 'ts-loader'],
                 include: path.resolve('src')
-            }
+            },
+			{
+				test: /\.js$/,
+				include: [
+					path.resolve(__dirname, "src"),
+					path.resolve(__dirname, "tools"),
+					path.resolve(__dirname, "test")
+			    ],
+				loaders: ['babel-loader']
+			}
         ]
     }
 }
