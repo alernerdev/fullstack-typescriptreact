@@ -1,0 +1,13 @@
+{
+    "defaultSeverity": "warning",
+    "extends": ["tslint:latest", "tslint-react"],
+    "jsRules":{},
+    "rules":{
+        // forces objects to have keys in alphabetical order
+        "object-literal-sort-keys": false,
+        "quotemark": false,
+        "interface-name":[true, "never-prefix"],
+        "no-consecutive-blank-lines": false
+    },
+    "ruleDirectory": []
+}
