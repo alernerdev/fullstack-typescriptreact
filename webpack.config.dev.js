@@ -23,7 +23,7 @@ module.exports = {
     ],
     
     resolve: {
-        // look for modules in in .ts(x) first, then .js
+        // look for modules in .ts(x) first, then .js
         extensions: ['.ts', '.tsx', '.js'],
 
         // add 'src' to the modules so that when you import files you can do so with 'src'

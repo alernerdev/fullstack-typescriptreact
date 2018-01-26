@@ -4,12 +4,14 @@
   "description": "my fullstack react using typescript environment",
   "main": "index.js",
   "scripts": {
+    "one": "tsc -w -jsx src/Field.tsx",
     "prestart": "tsc tools/startMessage.ts",
-    "start": "npm-run-all --parallel open:src test lint:watch",
+    "start": "npm-run-all --parallel open:src test:watch lint:watch",
     "open:src": "babel-node tools/srcServer.js",
     "lint": "tslint --project tsconfig.json",
-    "lint:watch": "npm run lint -- --watch",
-    "test": "",
+    "lint:watch": "chokidar src/**/*.ts -c \"npm run lint\" --initial --verbose",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "clean-dist": "npm run remove-dist && mkdir dist",
     "remove-dist": "node_modules/.bin/rimraf ./dist"
   },
@@ -30,14 +32,17 @@
   "devDependencies": {
     "@types/colors": "^1.1.3",
     "@types/jest": "^22.1.0",
+    "@types/prop-types": "^15.5.2",
     "@types/react": "^16.0.35",
     "@types/react-dom": "^16.0.3",
+    "@types/validator": "^6.3.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "body-parser": "^1.18.2",
+    "chokidar-cli": "^1.2.0",
     "colors": "^1.1.2",
     "express": "^4.16.2",
     "jest": "^22.1.4",
@@ -47,6 +52,7 @@
     "ts-jest": "^22.0.1",
     "ts-loader": "^3.3.1",
     "tslint": "^5.9.1",
+    "tslint-config-airbnb": "^5.5.0",
     "tslint-react": "^3.4.0",
     "typescript": "^2.6.2",
     "webpack": "^3.10.0",
@@ -55,6 +61,7 @@
   },
   "dependencies": {
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "validator": "^9.3.0"
   }
 }

@@ -1,6 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './ts/app';
+//import '../../node_modules/semantic-ui/dist/semantic.min.css';
+//import '../favicon.ico'; // Tell webpack to load favicon.ico
+//import Header from '../common/header';
 
+//ReactDOM.render(
+//	<Header active="form"/>,
+//	document.getElementById('header')
+//);
+
+
+
+/*
 const App = () => {
     return (
         <div>
@@ -8,20 +20,4 @@ const App = () => {
         </div>
     );
 };
-
-ReactDOM.render(<App />, document.getElementById('app'));
-
-interface Person {
-    firstName: string;
-    lastName: string;
-}
-
-function Greeter(person: Person) {
-    return 'Hello ' + person.firstName + ' ' + person.lastName;
-}
-
-const user = {firstName: 'alex', lastName: 'lerner'};
-const elem = document.getElementById('playing');
-if (elem) {
-    elem.innerHTML = Greeter(user);
-}
+*/
