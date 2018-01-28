@@ -3,7 +3,8 @@
     "extends": ["tslint-config-airbnb", "tslint-react"],
     "jsRules":{},
     "rules":{
-        "eofline":false
+		"eofline":false,
+		"indent": [false]
      },
     "ruleDirectory": []
 }

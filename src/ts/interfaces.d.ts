@@ -25,11 +25,13 @@ interface ICourseSelectState {
 }
 
 interface IFields {
-    name: string
+    // This is an index signature. It means this object can hold
+    // a key of any name, and they can be accessed and set using
+    // bracket notation: `this.state.fields["somekey"]`
+    [name: string]: string
 }
 
 interface IOrderEntryState {
     fields: IFields,
     fieldErrors: IFields
 }
-
