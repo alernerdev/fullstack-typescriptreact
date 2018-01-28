@@ -62,6 +62,7 @@
   "dependencies": {
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "semantic-ui": "^2.2.13",
     "validator": "^9.3.0"
   }
 }

@@ -32,9 +32,14 @@ import * as PropTypes from 'prop-types';
     render() {
         return (
             <div>
+				{
+					this.props.label ?
+						(<label htmlFor={this.props.name}>{this.props.label}</label>) : ""
+				}
                 <input
                     placeholder={this.props.placeholder}
                     value={this.props.value}
+                    id={this.props.name}
                     onChange={e => {
 						console.log(`Inside Field change value:${e.target.value}`);
 						return this.onChange(e)}

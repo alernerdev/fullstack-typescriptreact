@@ -4,6 +4,7 @@ interface IFieldState {
 }
 
 interface IFieldProps {
+	label?: string,
     placeholder?: string,
     name: string,
     value?: string,

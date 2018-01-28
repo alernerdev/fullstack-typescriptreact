@@ -33,7 +33,8 @@ export default class OrderEntry extends React.Component<any, IOrderEntryState> {
         return (
             <div>
                 <Field
-                    placeholder="Symbol"
+					label="Symbol:"
+                    placeholder="symbol"
                     name="symbol"
 					value={this.state.fields.symbol}
                     onChange={this.onInputChange}
@@ -41,7 +42,8 @@ export default class OrderEntry extends React.Component<any, IOrderEntryState> {
 				/>
 				<br/>
 				<Field
-					placeholder="Quantity"
+					label="Quantity:"
+					placeholder="quantity"
 					name="qty"
 					value={this.state.fields.qty}
 					onChange={this.onInputChange}
