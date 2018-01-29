@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Field from './Field';
 import Side from './Side';
 
-export default class OrderEntry extends React.Component<any, IOrderEntryState> {
+export default class TradingUI2 extends React.Component<any, IOrderEntryState> {
 	constructor(props: any)
 	{
 		super(props);
@@ -27,17 +27,19 @@ export default class OrderEntry extends React.Component<any, IOrderEntryState> {
         const errMessages = Object.keys(fieldErrors).filter((k)=>fieldErrors[k]);
 
 		if (!order.symbol) {
-			console.log("NOT symbol. returning");
 			return true;
 		}
 		if (!order.qty) {
-			console.log("NOT qty. returning");
 			return true;
 		}
+
+		if (!order.side) {
+			return true;
+		}
+
         if (errMessages.length)
             return true;
 
-		console.log("OrderEntry got to the validation bottom");
         return false;
     }
 
@@ -121,6 +123,13 @@ export default class OrderEntry extends React.Component<any, IOrderEntryState> {
 		return false;
 	}
 
+	validateSide(val: string) {
+		if (!val)
+			return 'Order side required';
+
+		return false;
+	}
+
     render() {
         return (
             <div>
@@ -149,7 +158,11 @@ export default class OrderEntry extends React.Component<any, IOrderEntryState> {
 						validate={ this.validateQty}
 					/>
 					<br/>
-					<Side />
+					<Side
+						name="side"
+						onChange={this.onInputChange}
+						validate={this.validateSide}
+					/>
 					<br/>
 					<input type="submit" disabled={this.validate()}/>
                 </form>

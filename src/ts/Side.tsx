@@ -1,55 +1,50 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as PropTypes from 'prop-types';
 
-export default class Side extends React.Component<any, any> {
+export default class Side extends React.Component<ISideProps, ISideState> {
 	constructor(props :any) {
 		super(props);
 
 		this.state = {
-			side: null
+			side: '',
+			error: false
 		}
 	}
 
 	onSelectSide(evt :any) {
-        const side = evt.target.value;
-		this.setState({side: side});
+		const side = evt.target.value;
+		const name = this.props.name;
+
+        // if validate func was passed in, validate it
+		const error = this.props.validate ? this.props.validate(side) : false;
+		this.setState({side: side, error: error});
 
 		// bubble it up the chain
-		//this.props.onChange({name: 'department', value: department});
+		this.props.onChange(name, side, error);
 	}
 
-	/*
-	onSelectDepartment = (evt: any) => {
-
-        const course = null;
-
-        this.props.onChange({name: 'department', value: department});
-        this.props.onChange({name: 'course', value: course});
-
-        if (department)
-            this.fetch(department);
-    }
-*/
 	render() {
 		return (
-			<select
-				onChange={e => { this.onSelectSide(e)}}
-				value= {this.state.side || ''}
-			>
-				<option value=''>
-					Buy/Sell?
-				</option>
-				<option value='buy'>
-					Buy
-				</option>
-				<option value='sell'>
-					Sell
-				</option>
-				<option value='sellshort'>
-					Sell Short
-				</option>
-			</select>
+			<div>
+				<select
+					onChange={e => { this.onSelectSide(e)}}
+					value= {this.state.side || ''}
+				>
+					<option value=''>
+						Buy/Sell?
+					</option>
+					<option value='buy'>
+						Buy
+					</option>
+					<option value='sell'>
+						Sell
+					</option>
+					<option value='sellshort'>
+						Sell Short
+					</option>
+				</select>
+        	   <span style={{color:'red'}}>{this.state.error}</span>
+			</div>
 		);
 	};
 }

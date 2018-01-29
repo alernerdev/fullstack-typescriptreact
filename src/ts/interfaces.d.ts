@@ -45,6 +45,17 @@ interface IOrderEntryProps {
     onChange: Function
 }
 
+interface ISideProps {
+	name: string,
+	onChange: Function
+	validate? : Function
+}
+
+interface ISideState {
+	side: string,
+	error: false
+}
+
 declare enum Side {
 	Buy= 1, Sell, SellShort
 }
