@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import OrderEntry from './OrderEntry';
+import TradingUI from './TradingUI';
 import Field from './Field';
 
 ReactDOM.render(
@@ -12,7 +12,7 @@ ReactDOM.render(
 	//validate={(val: string)=> (val ? false : 'Symbol Required')}
 />,
 */
-	<OrderEntry />,
+	<TradingUI />,
 	document.getElementById('content')
 );
 

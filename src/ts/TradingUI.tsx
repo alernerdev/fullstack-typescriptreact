@@ -7,15 +7,14 @@ import loadingImg from '../images/loading.gif';
 import OrderEntry from './OrderEntry';
 
 // using ref gives direct access to the DOM element
-export default class TradingUI extends React.Component {
-    state = {
-        fields: { // individual fields
-            symbol: '',
-            qty: 0,
-        },
-        orders: [],
-        fieldErrors: {}
-    };
+export default class TradingUI extends React.Component<any, ITradingState> {
+	constructor(props: any) {
+		super(props);
+
+		this.state = {
+			orders: []
+		};
+	}
 
     /*
     componentWillMount() {
@@ -52,9 +51,9 @@ export default class TradingUI extends React.Component {
         //if (this.validate())
         //    return;
 
-        const order = this.state.fields;
-        const orders = [...this.state.orders, order];
-        this.setState({_saveStatus: 'SAVING'});
+        //const order = this.state.fields;
+        //const orders = [...this.state.orders, order];
+        ///this.setState({_saveStatus: 'SAVING'});
         /*
         apiClient.savePeople(orders)
             .then(() =>{
@@ -71,10 +70,16 @@ export default class TradingUI extends React.Component {
             });*/
     }
 
+	onOrder(order: Order) {
+        const orders = [...this.state.orders, order];
+		this.setState({orders});
+	}
+
     render() {
         return (
             <div>
                 <h1> Enter Order </h1>
+				<OrderEntry onChange={this.onOrder} />
                 <form onSubmit={this.onFormSubmit}>
                     <input type="submit"/>
                 </form>
@@ -82,11 +87,11 @@ export default class TradingUI extends React.Component {
                     <h3>Orders</h3>
                     <ul>
                         {/* return li element for each name in the array */}
-                        {/*
-                        {this.state.orders.map(({symbol, qty}, index) => {
-                            return (<li key={index}>{symbol qty}</li>);
-                        })}
-                    */}
+                        {
+							this.state.orders.map( ( order: Order, index: number) :JSX.Element => {
+								return (<li key={index}>{order.symbol} {order.qty}</li>);
+							})
+                    	}
                     </ul>
                 </div>
             </div>

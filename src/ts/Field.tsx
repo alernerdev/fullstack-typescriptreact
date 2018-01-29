@@ -40,10 +40,7 @@ import * as PropTypes from 'prop-types';
                     placeholder={this.props.placeholder}
                     value={this.props.value}
                     id={this.props.name}
-                    onChange={e => {
-						console.log(`Inside Field change value:${e.target.value}`);
-						return this.onChange(e)}
-					}
+                    onChange={e => { this.onChange(e)}}
                 />
                 <span style={{color:'red'}}>{this.state.error}</span>
             </div>
