@@ -13,19 +13,19 @@ import * as PropTypes from 'prop-types';
     }
 
     componentWillReceiveProps(update: any) {
-		console.log(`Field componentWillReceiveProps value:${update.value}`);
         this.setState({value: update.value});
     }
 
-    /* from input to here, from here further up to the parent */
+    /* from immediate input to here, from here further up to the parent */
 	onChange = (evt: any) => {
         const name = this.props.name;
 		const value = evt.target.value;
-		console.log(`Field onChange name:${name} value:${value}`);
 
         // if validate func was passed in, validate it
 		const error = this.props.validate ? this.props.validate(value) : false;
-        this.setState({value : value, error : error });
+		this.setState({value : value, error : error });
+
+		// bubble it up the chain
         this.props.onChange(name, value, error);
 	}
 

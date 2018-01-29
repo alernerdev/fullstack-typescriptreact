@@ -46,6 +46,8 @@ export default class TradingUI extends React.Component<any, ITradingState> {
     }
 */
     onFormSubmit = (evt:any) => {
+		console.log("onFormSubmit called");
+
         evt.preventDefault();
 
         //if (this.validate())
@@ -71,6 +73,7 @@ export default class TradingUI extends React.Component<any, ITradingState> {
     }
 
 	onOrder(order: Order) {
+		console.log("onOrder Called");
         const orders = [...this.state.orders, order];
 		this.setState({orders});
 	}
@@ -78,13 +81,19 @@ export default class TradingUI extends React.Component<any, ITradingState> {
     render() {
         return (
             <div>
-                <h1> Enter Order </h1>
-				<OrderEntry onChange={this.onOrder} />
                 <form onSubmit={this.onFormSubmit}>
+					<OrderEntry
+						onChange={this.onOrder}
+	                    validate={(val: string)=> {
+							console.log("TradingUI got a validate call");
+							return val ? false : 'Symbol Required'
+						}}
+					/>
+					<br/>
                     <input type="submit"/>
                 </form>
                 <div>
-                    <h3>Orders</h3>
+                    <h3>Book</h3>
                     <ul>
                         {/* return li element for each name in the array */}
                         {

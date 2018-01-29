@@ -36,7 +36,8 @@ interface IFields {
 }
 
 interface IOrderEntryState {
-    fields: IFields,
+	fields: IFields,
+	orders: Order[],
     fieldErrors: IFields
 }
 
@@ -59,6 +60,7 @@ interface ITradingProps {
 
 interface Order {
 	symbol: string,
+	price: number,
 	qty: number,
 	side: Side
 }
