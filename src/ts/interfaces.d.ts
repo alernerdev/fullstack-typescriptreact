@@ -13,20 +13,6 @@ interface IFieldProps {
     onChange: Function
 }
 
-//---------------------------------
-interface ICourseSelectProps {
-    department?: string,
-    course?: string,
-    onChange: Function
-}
-
-interface ICourseSelectState {
-    department: string | null,
-    course: string | null,
-    courses: string[],
-    _loading: boolean
-}
-
 //--------------------------------------------
 interface IFields {
     // This is an index signature. It means this object can hold
@@ -56,22 +42,14 @@ interface ISideState {
 	error: false
 }
 
-declare enum Side {
-	Buy= 1, Sell, SellShort
+declare enum SideEnum {
+	None = 0, Buy, Sell, SellShort
 }
 
 //----------------------------------------
-interface ITradingState {
-	orders: Order[]
-}
-
-interface ITradingProps {
-	order: Order[]
-}
-
 interface Order {
 	symbol: string,
 	price: number,
 	qty: number,
-	side: Side
+	side: SideEnum
 }

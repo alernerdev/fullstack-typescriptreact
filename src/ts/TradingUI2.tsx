@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Field from './Field';
 import Side from './Side';
+import { getOrders, saveOrders } from './api';
 
 export default class TradingUI2 extends React.Component<any, IOrderEntryState> {
 	constructor(props: any)
@@ -20,6 +21,13 @@ export default class TradingUI2 extends React.Component<any, IOrderEntryState> {
 			fieldErrors: {}
 		};
 	}
+
+	componentWillMount() {
+        getOrders((orders: Order[]) => {
+			console.log(`retrieved orders upon load: ${JSON.stringify(orders)}`);
+            this.setState({orders: orders});
+        });
+    }
 
 	validate = () => {
         const order = this.state.fields;
@@ -43,29 +51,48 @@ export default class TradingUI2 extends React.Component<any, IOrderEntryState> {
         return false;
     }
 
+	textToSide(text :string) : SideEnum {
+		if (text === 'buy')
+			return SideEnum.Buy;
+		else if (text === 'sell')
+			return SideEnum.Sell;
+		else if (text === 'sellshort')
+			return SideEnum.SellShort;
+		else 
+			return SideEnum.None;
+	}
+
 	onFormSubmit = (evt:any) => {
-        const order = this.state.fields;
-		const orders = [...this.state.orders, order];
+		const fields = this.state.fields;
+        const order :Order = {
+			symbol: fields.symbol,
+			price: parseFloat(fields.price),
+			qty: parseInt(fields.qty),
+			side: this.textToSide(fields.side)
+		}
+		const orders :Order[] = [...this.state.orders, order];
 
 		evt.preventDefault();
 
 		if (this.validate())
             return;
 
-        /*
-        apiClient.savePeople(orders)
+		console.log('done with validation');
+		saveOrders(orders)
             .then(() =>{
                 this.setState({
-                    orders: orders,
-                    fields: {
-                        name:'',
-                        email:'',
-                    },
+                      fields: {
+                        symbol:'',
+						price:'',
+						qty:'',
+						side:''
+					},
+					orders: orders,
                 });
             })
             .catch((err) => {
-                console.error(err); // eslint-disable-line no-console
-            });*/
+                console.error(err);
+            });
     }
 
     // this function is infolded by Field
@@ -143,7 +170,7 @@ export default class TradingUI2 extends React.Component<any, IOrderEntryState> {
 					/>
 					<br/>
 					<Field
-						placeholder="0.0"
+						placeholder="price 0.0"
 						name="price"
 						value={this.state.fields.price}
 						onChange={this.onInputChange}
@@ -151,7 +178,7 @@ export default class TradingUI2 extends React.Component<any, IOrderEntryState> {
 					/>
 					<br/>
 					<Field
-						placeholder="0"
+						placeholder="qty 0"
 						name="qty"
 						value={this.state.fields.qty}
 						onChange={this.onInputChange}
@@ -167,12 +194,13 @@ export default class TradingUI2 extends React.Component<any, IOrderEntryState> {
 					<input type="submit" disabled={this.validate()}/>
                 </form>
                 <div>
+					<hr/>
                     <h3>Book</h3>
                     <ul>
-                        {/* return li element for each name in the array */}
+						{/* return li element for each name in the array */}
                         {
 							this.state.orders.map( ( order: Order, index: number) :JSX.Element => {
-								return (<li key={index}>{order.symbol} {order.qty}</li>);
+								return (<li key={index}>{order.symbol} {order.side} {order.price}x{order.qty}</li>);
 							})
                     	}
                     </ul>
