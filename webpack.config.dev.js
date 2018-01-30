@@ -5,7 +5,7 @@ process.env['NODE_ENV'] = 'development';
 
 module.exports = {
     // sourcemaps inline
-    devtool: 'eval',
+	devtool: 'inline-source-map',
 	context: path.resolve(__dirname, "src"),
     entry: {
         app: 'index.tsx'

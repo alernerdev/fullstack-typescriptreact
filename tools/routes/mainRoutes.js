@@ -29,9 +29,15 @@ router.route('/')
         console.log("entered /api/orders route. ");
         res.setHeader('Cache-Control', 'no-cache');
         fs.readFile(DATA_FILE, 'utf8', (err, data) =>{
-            orders = data;
+            if (err) {
+                console.log(`error reading order file ${JSON.stringify(data)}`);
+                res.json(orders);
+            }
+            else {
+                console.log(`successfully read orders file`);
+                res.json(data);
+            }
         })
-        res.json(orders);
     })
     .post((req, res) => {
         console.log(`received body ${JSON.stringify(req.body)}`);
