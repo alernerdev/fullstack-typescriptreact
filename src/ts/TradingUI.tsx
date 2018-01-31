@@ -40,18 +40,32 @@ export default class TradingUI2 extends React.Component<any, IOrderEntryState> {
 		if (!order.qty) {
 			return true;
 		}
-
 		if (!order.side) {
 			return true;
 		}
-
         if (errMessages.length)
             return true;
 
         return false;
     }
 
-	textToSide(text :string) : SideEnum {
+	SideToTextDisplay(side :SideEnum) :string {
+		switch (side) {
+			case SideEnum.Buy:
+			return "Buy";
+
+			case SideEnum.Sell:
+			return "Sell";
+
+			case SideEnum.SellShort:
+			return "SellShort";
+
+			default:
+			return "None";
+		}
+	}
+
+	textValueToSide(text :string) : SideEnum {
 		if (text === 'buy')
 			return SideEnum.Buy;
 		else if (text === 'sell')
@@ -61,14 +75,24 @@ export default class TradingUI2 extends React.Component<any, IOrderEntryState> {
 		else 
 			return SideEnum.None;
 	}
+	valueToSide(val :number) : SideEnum {
+		if (val === 1)
+			return SideEnum.Buy;
+		else if (val === 2)
+			return SideEnum.Sell;
+		else if (val === 3)
+			return SideEnum.SellShort;
+		else 
+			return SideEnum.None;
+	}
 
-	onFormSubmit = (evt:any) => {
+	onFormSubmit = (evt :any) => {
 		const fields = this.state.fields;
         const order :Order = {
 			symbol: fields.symbol,
 			price: parseFloat(fields.price),
 			qty: parseInt(fields.qty),
-			side: this.textToSide(fields.side)
+			side: this.textValueToSide(fields.side)
 		}
 		const orders :Order[] = [...this.state.orders, order];
 
@@ -200,7 +224,7 @@ export default class TradingUI2 extends React.Component<any, IOrderEntryState> {
 						{/* return li element for each name in the array */}
                         {
 							this.state.orders.map( ( order: Order, index: number) :JSX.Element => {
-								return (<li key={index}>{order.symbol} {order.side} {order.price}x{order.qty}</li>);
+								return (<li key={index}>{order.symbol} {this.SideToTextDisplay(order.side)} {order.price}x{order.qty}</li>);
 							})
                     	}
                     </ul>

@@ -27,10 +27,6 @@ interface IOrderEntryState {
     fieldErrors: IFields
 }
 
-interface IOrderEntryProps {
-    onChange: Function
-}
-
 interface ISideProps {
 	name: string,
 	onChange: Function

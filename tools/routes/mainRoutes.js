@@ -35,7 +35,7 @@ router.route('/')
             }
             else {
                 console.log(`successfully read orders file`);
-                res.json(data);
+                res.json(JSON.parse(data));
             }
         })
     })
@@ -47,7 +47,8 @@ router.route('/')
             }
             console.log("successfully written orders to file");
             res.setHeader('Cache-Control', 'no-cache');
-            res.json(req.body);
+            res.sendStatus(200);
+            //res.json(req.body);
         });
     })
     
